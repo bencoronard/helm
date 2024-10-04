@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: common-config
 data:
-  pg-url: pg-db-service
+  pg-url: service-postgres

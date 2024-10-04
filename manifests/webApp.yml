@@ -1,36 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-postgres
+  name: deployment-webApp
 spec:
-  replica: 1
+  replica: 2
   selector:
     matchLabels:
-      app: postgres
+      app: webApp
   template:
     metadata:
       labels:
-        app: postgres
+        app: webApp
     spec:
       containers:
-      - name: db-postgresql
-        image: postgresql:16.4-alpine
+      - name: webApp101
+        image: gateway-scheduler/v2
         resources:
           limits:
-            memory: "128Mi"
+            memory: "400Mi"
             cpu: "500m"
         ports:
-        - containerPort: 5432
+        - containerPort: 8080
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-postgres
+  name: service-webApp
 spec:
   selector:
-    app: postgres
+    app: webApp
   ports:
   - protocol: TCP
-    port: 5432
-    targetPort: 5432
+    port: 7777
+    targetPort: 8080
