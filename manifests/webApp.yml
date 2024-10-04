@@ -1,26 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-webApp
+  name: deployment-webapp
 spec:
-  replica: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: webApp
+      app: webapp
   template:
     metadata:
       labels:
-        app: webApp
+        app: webapp
     spec:
       containers:
-      - name: webApp101
-        image: gateway-scheduler/v2
+      - name: webapp101
+        image: gateway-scheduler:v2
         resources:
           limits:
             memory: "400Mi"
             cpu: "500m"
         ports:
         - containerPort: 8080
+
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3
+        
+
         env:
           - name: APP_SERVICE_NAME
             valueFrom:
@@ -92,11 +112,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-webApp
+  name: service-webapp
 spec:
+  type: NodePort
   selector:
-    app: webApp
+    app: webapp
   ports:
   - protocol: TCP
-    port: 7777
+    port: 8080
     targetPort: 8080
+    nodePort: 30001

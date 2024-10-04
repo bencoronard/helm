@@ -11,6 +11,4 @@ data:
   app-port: "8080"
   app-timeout: "5"
   app-log-path: logs/spring.log
-  app-secret: loxbit888
   app-client-url: http://gateway:8080
-  app-client-secret: loxley888

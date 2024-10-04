@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: deployment-postgres
 spec:
-  replica: 1
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: db-postgresql
-        image: postgresql:16.4-alpine
+        image: postgres:16.4-alpine
         resources:
           limits:
             memory: "128Mi"
