@@ -4,3 +4,13 @@ metadata:
   name: common-config
 data:
   pg-url: service-postgres
+  pg-db: mdd
+  pg-port: "5432"
+  app-name: gateway-scheduler
+  app-mode: dev
+  app-port: "8080"
+  app-timeout: "5"
+  app-log-path: logs/spring.log
+  app-secret: loxbit888
+  app-client-url: http://gateway:8080
+  app-client-secret: loxley888

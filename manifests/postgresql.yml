@@ -21,6 +21,22 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: common-config
+              key: pg-db
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: pg-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: pg-password
 
 ---
 apiVersion: v1

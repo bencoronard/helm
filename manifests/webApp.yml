@@ -21,6 +21,72 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8080
+        env:
+          - name: APP_SERVICE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-name
+          - name: APP_SERVER_MODE
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-mode
+          - name: APP_SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-port
+          - name: APP_SERVER_TIMEOUT
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-timeout
+          - name: APP_LOGGER_LOG_FILE_PATH
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-log-path
+          - name: APP_APP_VALIDATE_X_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: common-secret
+                key: app-secret
+          - name: APP_DATABASE_POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: pg-url
+          - name: APP_DATABASE_POSTGRES_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: pg-port
+          - name: APP_DATABASE_POSTGRES_DBNAME
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: pg-db
+          - name: APP_DATABASE_POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: common-secret
+                key: pg-user
+          - name: APP_DATABASE_POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: common-secret
+                key: pg-password
+          - name: APP_CLIENTS_GATEWAY_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: common-config
+                key: app-client-url
+          - name: APP_CLIENTS_GATEWAY_X_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: common-secret
+                key: app-client-secret
 
 ---
 apiVersion: v1
