@@ -1,2 +1,2 @@
 all:
-	helm template my-release . > manifest.yaml
+	helm template my-release . > ./build/manifest.yaml
